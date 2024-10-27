@@ -49,7 +49,7 @@ public class MarkdownParamsStep extends Step {
 
         @Override
         public String getFunctionName() {
-            return "MarkdownParams";
+            return "markdownParams";
         }
 
         @Override
