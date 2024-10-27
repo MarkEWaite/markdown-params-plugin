@@ -33,7 +33,7 @@ pipeline {
         stage('Demo') {
             steps {
                 script {
-                    def md = MarkdownParams "#### Microservices to deploy\n- [x] Auth\n- [x] Users\n- [ ] Inventory\n- [ ] Billing\n- [ ] Monitoring"
+                    def md = markdownParams "#### Microservices to deploy\n- [x] Auth\n- [x] Users\n- [ ] Inventory\n- [ ] Billing\n- [ ] Monitoring"
                     def items = md.getCheckedItemsOf("Microservices to deploy")
                     items.each { item ->
                         echo "Deploying ${item}"
