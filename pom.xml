@@ -23,16 +23,6 @@
     </license>
   </licenses>
 
-  <developers>
-    <developer>
-      <id>jesusnoseq</id>
-      <url>https://jesusnoseq.com</url>
-      <roles>
-        <role>developer</role>
-      </roles>
-    </developer>
-  </developers>
-
   <scm child.scm.connection.inherit.append.path="false" child.scm.developerConnection.inherit.append.path="false" child.scm.url.inherit.append.path="false">
     <connection>scm:git:https://github.com/${gitHubRepo}</connection>
     <developerConnection>scm:git:https://github.com/${gitHubRepo}</developerConnection>
@@ -114,16 +104,4 @@
     </pluginRepository>
   </pluginRepositories>
 
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <configuration>
-          <source>11</source>
-          <target>11</target>
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
 </project>
