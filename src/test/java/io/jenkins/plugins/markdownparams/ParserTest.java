@@ -31,7 +31,8 @@ public class ParserTest {
     @CsvSource({
             "'# Title\n- [ ] Checkbox item 1\n* [ ] Checkbox item 2', false, true",
             "'# Title\n- [x] Checkbox item 1\n* [x] Checkbox item 2', true, false",
-            "'# Title\n- [x] Checkbox item 1\n* [ ] Checkbox item 2', false, false"
+            "'# Title\n- [x] Checkbox item 1\n* [ ] Checkbox item 2', false, false",
+            "'# Title\n No items', true, true"
     })
     void testAllAndNoneItemsChecked(String input, boolean expectedAllChecked, boolean expectedNoneChecked) {
         Parser parser = new Parser(input);
