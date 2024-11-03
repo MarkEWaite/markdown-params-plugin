@@ -126,6 +126,19 @@ public class Parser implements Serializable {
     }
 
     @Whitelisted
+    public boolean isAllItemsCheckedOf(String title) {
+        Predicate<Item> filterPredicate = it -> it.isCheckbox() && !it.isChecked();
+        return searchAndFilter(title, filterPredicate).isEmpty();
+    }
+
+    @Whitelisted
+    public boolean isNoneItemsCheckedOf(String title) {
+        Predicate<Item> filterPredicate = it -> it.isCheckbox() && it.isChecked();
+        return searchAndFilter(title, filterPredicate).isEmpty();
+    }
+
+
+    @Whitelisted
     public List<String> getUnorderedListItemsOf(String title) {
         Predicate<Item> filterPredicate = it -> !it.isCheckbox() && !it.isOrdered();
         return searchAndFilter(title, filterPredicate);

@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.List;
 import org.junit.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 public class ParserTest {
 
@@ -22,6 +24,19 @@ public class ParserTest {
         List<String> checkedItems = parser.getCheckedItemsOf("Title");
         assertEquals(1, checkedItems.size());
         assertEquals("Checkbox item 1", checkedItems.get(0));
+    }
+
+
+    @ParameterizedTest
+    @CsvSource({
+            "'# Title\n- [ ] Checkbox item 1\n* [ ] Checkbox item 2', false, true",
+            "'# Title\n- [x] Checkbox item 1\n* [x] Checkbox item 2', true, false",
+            "'# Title\n- [x] Checkbox item 1\n* [ ] Checkbox item 2', false, false"
+    })
+    void testAllAndNoneItemsChecked(String input, boolean expectedAllChecked, boolean expectedNoneChecked) {
+        Parser parser = new Parser(input);
+        assertEquals(expectedAllChecked, parser.isAllItemsCheckedOf("Title"));
+        assertEquals(expectedNoneChecked, parser.isNoneItemsCheckedOf("Title"));
     }
 
     @Test
