@@ -56,9 +56,10 @@ Deploying Users
 * getCheckboxItemsOf(String header) → returns a list with all checkbox items in \<header\> section
 * getCheckedItemsOf(String header) → returns a list with all checkbox checked items in \<header\> section
 * getUncheckedItemsOf(String header) → returns a list with all checkbox unchecked items in \<header\> section
+* isAllItemsCheckedOf(String header) → returns true if all checkbox items in \<header\> section are checked 
+* isNoneItemsCheckedOf(String header) → returns true if all checkbox items in \<header\> section are unchecked
 * getUnorderedListItemsOf(String header) → returns a list with all unordered items in \<header\> section
 * getOrderedListItemsOf(String header) → returns a list with all ordered items in \<header\> section
-
 
 ## Plugin development
 
