@@ -137,7 +137,6 @@ public class Parser implements Serializable {
         return searchAndFilter(title, filterPredicate).isEmpty();
     }
 
-
     @Whitelisted
     public List<String> getUnorderedListItemsOf(String title) {
         Predicate<Item> filterPredicate = it -> !it.isCheckbox() && !it.isOrdered();
