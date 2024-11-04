@@ -1,4 +1,4 @@
-# MarkdownParams
+# Markdown Params
 
 ## Introduction
 
