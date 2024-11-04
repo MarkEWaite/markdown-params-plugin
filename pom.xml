@@ -14,6 +14,7 @@
   <version>${changelist}</version>
   <packaging>hpi</packaging>
   <name>Markdown Params</name>
+  <description>Extracts task lists from Markdown text to seamlessly control Jenkins pipelines</description>
   <url>https://github.com/jenkinsci/${project.artifactId}-plugin</url>
 
   <licenses>
