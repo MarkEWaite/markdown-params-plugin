@@ -1,22 +1,25 @@
-# MarkdownParams
+# Markdown Params
 
 ## Introduction
 
-Markdown Params plugin allows Jenkins pipelines to parse Markdown files, extract lists (including checkboxes), and retrieve parameters from them, such as checked or unchecked items. 
+Markdown Params plugin allows Jenkins pipelines to parse Markdown files, extract lists (including checkbox list), and retrieve parameters from them, such as checked or unchecked items. 
 
-This is useful in continuous integration (CI) processes, where Markdown can serve as a task list or selection tool. 
+This is useful in continuous integration (CI) processes, where Markdown can serve as a task list or selection tool in pull request templates. 
 
 Combined with Jenkins plugins like http_request or generic-webhook-trigger, this enables dynamic control over pipelines based on user-defined inputs, such as deploying microservices marked in pull requests.
 
 ### Use case
 
+This diagram illustrates the interaction between the Markdown Params plugin and other components in a pull request workflow.
+
 ![use case diagram](doc/usecase.png)
 
 
 
-## Getting started
+## Example to get started
 
-### Example
+To demonstrate the functionality of the Markdown Params plugin, we can use the following Markdown task list. This checkboxes list outlines the microservices scheduled for deployment.
+
 ```markdown
 #### Microservices to deploy
 - [x] Auth
@@ -26,6 +29,10 @@ Combined with Jenkins plugins like http_request or generic-webhook-trigger, this
 - [ ] Monitoring
 ```
 #### Pipeline
+
+In a minimal pipeline example, the Markdown Params plugin reads the Markdown task list and "deploy" the specified microservices.
+The plugin retrieves the checked items to decide which microservices to deploy.
+
 ```groovy
 pipeline {
     agent any
@@ -44,7 +51,11 @@ pipeline {
     }
 }
 ```
+
 #### Output
+
+When the above pipeline runs, it will output the following text.
+
 ```text
 Deploying Auth
 Deploying Users
@@ -60,6 +71,8 @@ Deploying Users
 * isNoneItemsCheckedOf(String header) → returns true if all checkbox items in \<header\> section are unchecked
 * getUnorderedListItemsOf(String header) → returns a list with all unordered items in \<header\> section
 * getOrderedListItemsOf(String header) → returns a list with all ordered items in \<header\> section
+
+> ℹ️ **Info:** If the item is not under a specific header, using an empty header `""` will retrieve all items
 
 ## Plugin development
 
