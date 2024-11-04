@@ -98,4 +98,13 @@ public class ParserTest {
         assertEquals(1, items.size());
         assertEquals("an item", items.get(0));
     }
+
+    @Test
+    public void testUntitledAndTitleItems() {
+        Parser parser = new Parser("* an item\n ##Title\n* another item");
+        List<String> items = parser.getUnorderedListItemsOf("");
+        assertEquals(2, items.size());
+        assertEquals("an item", items.get(0));
+        assertEquals("another item", items.get(1));
+    }
 }
