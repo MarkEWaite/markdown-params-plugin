@@ -34,26 +34,26 @@ public class Parser implements Serializable {
         List<String> lines = md.lines().collect(Collectors.toList());
         String lastHeader = "";
         String previousLine = "";
-        boolean itWasAHeader= false;
+        boolean itWasAHeader = false;
         for (String line : lines) {
             String h = getHeader(line);
             if (h != null) {
                 items.put(h, new LinkedHashMap<>());
                 lastHeader = h;
-                itWasAHeader=true;
-            } else if (!itWasAHeader && getAlternativeHeader(line, previousLine)!=null) {
+                itWasAHeader = true;
+            } else if (!itWasAHeader && getAlternativeHeader(line, previousLine) != null) {
                 items.put(previousLine, new LinkedHashMap<>());
                 lastHeader = previousLine;
-                itWasAHeader=true;
+                itWasAHeader = true;
             } else {
-                itWasAHeader=false;
+                itWasAHeader = false;
                 Item it = getItem(line);
                 if (it != null) {
                     items.computeIfAbsent(lastHeader, k -> new LinkedHashMap<>());
                     items.get(lastHeader).put(it.getName(), it);
                 }
             }
-            previousLine=line;
+            previousLine = line;
         }
     }
 
@@ -108,16 +108,15 @@ public class Parser implements Serializable {
         if (!matcher.find()) {
             return null;
         }
-        if (previousLine.trim().isEmpty()){
+        if (previousLine.trim().isEmpty()) {
             return null;
         }
-        if (REGEX_ALT_HEADER_NOT_VALID_TEXT.matcher(previousLine).find()){
+        if (REGEX_ALT_HEADER_NOT_VALID_TEXT.matcher(previousLine).find()) {
             return null;
         }
 
         return matcher.group(1);
     }
-
 
     private List<String> searchAndFilter(String title, Predicate<Item> filterPredicate) {
         ArrayList<String> result = new ArrayList<>();

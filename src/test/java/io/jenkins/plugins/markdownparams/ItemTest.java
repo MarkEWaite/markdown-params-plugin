@@ -9,21 +9,20 @@ public class ItemTest {
     @Test
     public void testGetBullet() {
         Item item1 = new Item(1, "*", true, "Checkbox Item");
-        assertEquals("*",item1.getBullet());
+        assertEquals("*", item1.getBullet());
 
         Item item2 = new Item(1, "1.", false, "Checkbox Item");
-        assertEquals("1.",item2.getBullet());
+        assertEquals("1.", item2.getBullet());
     }
 
     @Test
     public void testGetLevel() {
         Item item1 = new Item(1, "*", true, "Checkbox Item");
-        assertEquals(1,item1.getLevel());
+        assertEquals(1, item1.getLevel());
 
         Item item2 = new Item(2, "1.", false, "Checkbox Item");
-        assertEquals(2,item2.getLevel());
+        assertEquals(2, item2.getLevel());
     }
-
 
     @Test
     public void testIsCheckbox() {

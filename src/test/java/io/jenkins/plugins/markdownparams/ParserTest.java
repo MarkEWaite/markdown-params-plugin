@@ -106,7 +106,6 @@ public class ParserTest {
         assertEquals(0, items.size());
     }
 
-
     @Test
     public void testUntitledAndTitleItems() {
         Parser parser = new Parser("* an item\n ##Title\n* another item");
@@ -122,7 +121,6 @@ public class ParserTest {
         List<String> items = parser.getUnorderedListItemsOf("Title");
         assertEquals(1, items.size());
         assertEquals("Item 1", items.get(0));
-
 
         parser = new Parser("* Title\n=\n\n* Item 1\n# Title\n* Item 2");
         items = parser.getUnorderedListItemsOf("Title");
@@ -143,5 +141,4 @@ public class ParserTest {
         items = parser.getUnorderedListItemsOf("===");
         assertEquals(0, items.size());
     }
-
 }
