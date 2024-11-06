@@ -15,6 +15,8 @@ public class Parser implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private static final Pattern REGEX_HEADER = Pattern.compile("^#+\\s+(.*)");
+    private static final Pattern REGEX_ALT_HEADER = Pattern.compile("^(=+|-+)\\s*$");
+    private static final Pattern REGEX_ALT_HEADER_NOT_VALID_TEXT = Pattern.compile("^((\\s*[#*->+]|\\d\\.)\\s+.*)$");
     private static final Pattern REGEX_CHECKBOX_ITEM = Pattern.compile("^(\\s*)([-\\*])\\s\\[([xX\\s])]\\s+(.*)");
     private static final Pattern REGEX_LIST_ITEM = Pattern.compile("^(\\s*)([-\\*])\\s+(.*)");
     private static final Pattern REGEX_ORDERED_LIST_ITEM = Pattern.compile("^(\\s*)(\\d)\\.\\s+(.*)");
@@ -31,19 +33,27 @@ public class Parser implements Serializable {
         items = new LinkedHashMap<>();
         List<String> lines = md.lines().collect(Collectors.toList());
         String lastHeader = "";
-
+        String previousLine = "";
+        boolean itWasAHeader= false;
         for (String line : lines) {
             String h = getHeader(line);
             if (h != null) {
                 items.put(h, new LinkedHashMap<>());
                 lastHeader = h;
+                itWasAHeader=true;
+            } else if (!itWasAHeader && getAlternativeHeader(line, previousLine)!=null) {
+                items.put(previousLine, new LinkedHashMap<>());
+                lastHeader = previousLine;
+                itWasAHeader=true;
             } else {
+                itWasAHeader=false;
                 Item it = getItem(line);
                 if (it != null) {
                     items.computeIfAbsent(lastHeader, k -> new LinkedHashMap<>());
                     items.get(lastHeader).put(it.getName(), it);
                 }
             }
+            previousLine=line;
         }
     }
 
@@ -92,6 +102,22 @@ public class Parser implements Serializable {
         }
         return matcher.group(1);
     }
+
+    private String getAlternativeHeader(String line, String previousLine) {
+        Matcher matcher = REGEX_ALT_HEADER.matcher(line);
+        if (!matcher.find()) {
+            return null;
+        }
+        if (previousLine.trim().isEmpty()){
+            return null;
+        }
+        if (REGEX_ALT_HEADER_NOT_VALID_TEXT.matcher(previousLine).find()){
+            return null;
+        }
+
+        return matcher.group(1);
+    }
+
 
     private List<String> searchAndFilter(String title, Predicate<Item> filterPredicate) {
         ArrayList<String> result = new ArrayList<>();

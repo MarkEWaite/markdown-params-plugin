@@ -1,5 +1,6 @@
 package io.jenkins.plugins.markdownparams;
 
+import edu.umd.cs.findbugs.annotations.NonNull;
 import hudson.Extension;
 import java.util.Collections;
 import java.util.Set;
@@ -52,6 +53,7 @@ public class MarkdownParamsStep extends Step {
             return "markdownParams";
         }
 
+        @NonNull
         @Override
         public String getDisplayName() {
             return "MarkdownParams";
