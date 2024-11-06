@@ -13,7 +13,7 @@
   <artifactId>markdown-params</artifactId>
   <version>${changelist}</version>
   <packaging>hpi</packaging>
-  <name>Markdown Params</name>
+  <name>MarkdownParams</name>
   <url>https://github.com/jenkinsci/${project.artifactId}-plugin</url>
 
   <licenses>

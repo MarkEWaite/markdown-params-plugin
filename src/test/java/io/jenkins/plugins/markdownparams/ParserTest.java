@@ -100,11 +100,45 @@ public class ParserTest {
     }
 
     @Test
+    public void testGetItemWithoutItems() {
+        Parser parser = new Parser("*");
+        List<String> items = parser.getUnorderedListItemsOf("");
+        assertEquals(0, items.size());
+    }
+
+    @Test
     public void testUntitledAndTitleItems() {
         Parser parser = new Parser("* an item\n ##Title\n* another item");
         List<String> items = parser.getUnorderedListItemsOf("");
         assertEquals(2, items.size());
         assertEquals("an item", items.get(0));
         assertEquals("another item", items.get(1));
+    }
+
+    @Test
+    public void testGetAltHeader() {
+        Parser parser = new Parser("Title\n===\n\n* Item 1\n# Other title\n* Item 2");
+        List<String> items = parser.getUnorderedListItemsOf("Title");
+        assertEquals(1, items.size());
+        assertEquals("Item 1", items.get(0));
+
+        parser = new Parser("* Title\n=\n\n* Item 1\n# Title\n* Item 2");
+        items = parser.getUnorderedListItemsOf("Title");
+        assertEquals(1, items.size());
+        assertEquals("Item 2", items.get(0));
+
+        parser = new Parser("**Title**\n=\n\n* Item 1\n");
+        items = parser.getUnorderedListItemsOf("**Title**");
+        assertEquals(1, items.size());
+        assertEquals("Item 1", items.get(0));
+
+        parser = new Parser("=\n==\n===\n* Item 1\n");
+        items = parser.getUnorderedListItemsOf("=");
+        assertEquals(1, items.size());
+        assertEquals("Item 1", items.get(0));
+        items = parser.getUnorderedListItemsOf("==");
+        assertEquals(0, items.size());
+        items = parser.getUnorderedListItemsOf("===");
+        assertEquals(0, items.size());
     }
 }
